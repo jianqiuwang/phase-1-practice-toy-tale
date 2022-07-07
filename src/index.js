@@ -45,7 +45,11 @@ document.addEventListener("DOMContentLoaded", (e) => {
    const submit = document.querySelector('.add-toy-form')
    submit.addEventListener('submit', addNewToy)
 
+   const likeBtn = document.createElement('button')
+   likeBtn.addEventListener('click',addlikes)
+
 });
+
 
 function addNewToy(inputData){
   inputData.preventDefault()
@@ -67,26 +71,46 @@ function addNewToy(inputData){
     .then(resp=>resp.json())
     .then(element=>{
       const toyColllection = document.getElementById('toy-collection')
-      const newDiv = document.createElement('div')
-      const card = document.getElementsByClassName('card')
-      const h2 = document.createElement('h2')
-      const img = document.createElement('img')
-      const p = document.createElement('p')
-      const btn = document.createElement('button')
-  
+       const newDiv = document.createElement('div')
+       const card = document.getElementsByClassName('card')
+       const h2 = document.createElement('h2')
+       const img = document.createElement('img')
+       const p = document.createElement('p')
+       const btn = document.createElement('button')
+   
 
-    h2.textContent = element.name
-    newDiv.append(h2)
-    img.src = element.image
-    newDiv.append(img)
-    img.className = 'toy-avatar'
-    p.textContent = element.likes+' likes'
-    newDiv.append(p)
-    btn.className = 'like-btn'
-    btn.id = element.id
-    btn.innerText = 'Like ❤️'
-    newDiv.append(btn) 
-    newDiv.className = 'card'
-    toyColllection.append(newDiv)
+     h2.textContent = element.name
+     newDiv.append(h2)
+     img.src = element.image
+     newDiv.append(img)
+     img.className = 'toy-avatar'
+     p.textContent = element.likes+' likes'
+     newDiv.append(p)
+     btn.className = 'like-btn'
+     btn.id = element.id
+     btn.innerText = 'Like ❤️'
+     newDiv.append(btn) 
+     newDiv.className = 'card'
+     toyColllection.append(newDiv)
     })
+}
+
+function addlikes(e){
+  e.preventDefault()
+  console.log(e.target.id)
+  // fetch(`http://localhost:3000/toys${e.target.id}`,{
+  //   method: 'PATCH',
+  //   headers:
+  //   {
+  //     "Content-Type": "application/json",
+  //     Accept: "application/json"
+  //   },
+  //   body: JSON.stringify({
+  //     "likes": newNumberOfLikes
+  //   })
+  //   })
+  //   .then(resp=>resp.json())
+  //   .then(data=>{
+
+  //   })
 }
